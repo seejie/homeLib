@@ -1,0 +1,37 @@
+<view class="wrapper">
+  <view class="navBar">
+    <view class="sub input-box">
+      <input class="input" type="text" placeholder="关键字" focus
+        placeholder-style="color: #aaa;font-size:small" value="{{keyword}}"
+        bindinput="oninput" confirm-type="搜索" bindconfirm="oninput"/>
+      <text class="clear" bindtap="onclear">x</text>
+    </view>
+    <!-- <view class="sub">分类</view> -->
+    <view class="sub">{{keyword}}</view>
+    <text class="sub btn" bindtap="onrecord">录入</text>
+  </view>
+
+  <view class="list">
+    <view class="card" wx:for="{{list}}" wx:key="id">
+      <image class="img" src="../../images/default.jpg" alt="图片"/>
+
+      <view class="info">
+        <view class="name">
+          {{item.name}}
+        </view>
+        <view class="desc">{{item.desc}}</view>
+        <view class="exp">
+          <view class="loc">{{item.loc}}</view>
+          {{item.exp ? '有效期：' + item.exp : ''}}
+        </view>
+      </view>
+
+      <view class="btn-group">
+        <image src="../../images/edit.png" alt="编辑" 
+          class="icon edit" bindtap="onedit" data-id="{{item.id}}"/>
+        <image src="../../images/delete.png" alt="删除" 
+          class="icon delete" bindtap="ondelete" data-id="{{item.id}}"/>
+      </view>
+    </view>
+  </view>
+</view>

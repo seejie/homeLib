@@ -1,0 +1,41 @@
+<view class="wrapper">
+  <view class="name">
+    {{name}}
+    <text class="require" wx:if="{{require}}">*</text>
+  </view>
+  <block wx:if="{{type === 'input'}}">
+    <input class="input" type="text" value="{{val}}" 
+      placeholder="请输入{{name}}" placeholder-style="color: #aaa;"
+      bindinput="onNameChange"/>
+  </block>
+
+  <block wx:elif="{{type === 'select'}}">
+    <picker class="select" value="{{val}}" range="{{types}}"
+      bindchange="onTypeChange">
+      <view class="picker {{val ? '' : 'noval'}}" >{{val ? types[val] : '请选择' + name }}</view>
+    </picker>
+  </block>
+
+  <block wx:elif="{{type === 'txt'}}">
+    <textarea class="txt" placeholder="请输入{{name}}"
+      value="{{val}}" placeholder-style="color: #aaa;"
+      bindinput="onDescChange"></textarea>
+  </block>
+
+  <block wx:elif="{{type === 'date'}}">
+    <picker class="select" mode="date" start="{{start}}" 
+      value="{{val}}" bindchange="onDateChange">
+      <view class="picker {{val ? '' : 'noval'}}" >{{val ? val : '请选择' + name }}</view>
+    </picker>
+  </block>
+
+  <block wx:elif="{{type === 'img'}}">
+    <view class="photos">
+      <view class="img-box" wx:for="{{imgs}}" wx:key="item">
+        <image class="img" src="{{item}}" alt="图片" />
+        <text class="close" bindtap="ondelete" data-idx="{{index}}">X</text>
+      </view>
+      <view class="btn" bindtap="getPhoto">+</view>
+    </view>
+  </block>
+</view>

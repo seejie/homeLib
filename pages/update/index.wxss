@@ -1,0 +1,17 @@
+.wrapper{
+  background-color: #fff;
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.footer{
+  width: 100vw;
+  display: flex;
+  justify-content: space-around; 
+}
+
+.btn{
+  padding: 4px 12px;
+  border-radius: 4px;
+  border: 1px solid #eee;
+}
