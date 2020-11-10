@@ -57,6 +57,7 @@ page{
   height: 20vw;
   width: 20vw;
   margin-right: 5vw;
+  border-radius: 8px;
 }
 
 .info{

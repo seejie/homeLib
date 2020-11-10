@@ -12,25 +12,28 @@
   </view>
 
   <view class="list">
-    <view class="card" wx:for="{{list}}" wx:key="id">
-      <image class="img" src="{{item.img}}" alt="图片"/>
+    <view class="card" wx:for="{{list}}" wx:key="_id">
+      <image class="img" src="{{item.imgs[0]}}" alt="图片"/>
 
       <view class="info">
         <view class="name">
           {{item.name}}
         </view>
         <view class="desc">{{item.desc}}</view>
+        <view class="loc">
+          {{item.loc ? '位置：' + item.loc : ''}}
+          {{item.price ? '价格：' + item.price : ''}}
+        </view>
         <view class="exp">
-          <view class="loc">{{item.loc}}</view>
-          {{item.exp ? '有效期：' + item.exp : ''}}
+          {{'有效期：' + (item.exp || '长久')}}
         </view>
       </view>
 
       <view class="btn-group">
         <image src="../../images/edit.png" alt="编辑" 
-          class="icon edit" bindtap="onedit" data-id="{{item.id}}"/>
+          class="icon edit" bindtap="onedit" data-id="{{item._id}}"/>
         <image src="../../images/delete.png" alt="删除" 
-          class="icon delete" bindtap="ondelete" data-id="{{item.id}}"/>
+          class="icon delete" bindtap="ondelete" data-id="{{item._id}}"/>
       </view>
     </view>
   </view>

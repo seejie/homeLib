@@ -1,5 +1,6 @@
 import { createStoreBindings } from 'mobx-miniprogram-bindings'
 import { store } from '../../store/index'
+import { db, cmd } from '../../utils/util'
 
 Page({
   data: {
@@ -12,9 +13,11 @@ Page({
   onUnload() {
     this.storeBindings.destroyStoreBindings()
   },
+  onShow () {
+    this.init()
+  },
   init () {
     this.initStore()
-    this.initCloud()
     this.getList()
     this.getTypes()
   },
@@ -24,37 +27,16 @@ Page({
       actions: ['setTypes'],
     })
   },
-  initCloud () {
-    wx.cloud.init({
-      // env: 'test-7gglkliibd5d395e',
-      traceUser: true,
-    })
-  },
-  getList () {
-    const { keyword } = this.data
-    wx.cloud.callFunction({
-      name: 'getList',
-      data: {
-        keyword,
-        curr: 1,
-        limit: 10,
-        offset: 0,
-      }
-    }).then(({result}) => {
-      result.list.forEach(el=>{
-        el.img = el.img || '../../images/default.jpg'
-      })
-      console.log(result.list)
-      this.setData({ list: result.list })
-    }).catch(console.error)
-  },
   getTypes () {
-    wx.cloud.callFunction({
-      name: 'getOptions',
-      data: {}
-    }).then(({result}) => {
-      this.setTypes(result.options)
-    }).catch(console.error)
+    db.collection('types')
+      .where({
+        _id: cmd.neq(null),
+        deleted: cmd.eq(false)
+      })
+      .get()
+      .then(({data}) => {
+        this.setData({ types: data })
+      })
   },
   onrecord () {
     wx.navigateTo({
@@ -79,6 +61,7 @@ Page({
   ondelete (e) {
     const id = e.target.dataset.id
     const self = this
+
     wx.showModal({
       title: '删除物品',
       content: '确定要删除吗？',
@@ -86,7 +69,7 @@ Page({
         if (!res.confirm) return
         wx.cloud.callFunction({
           name: 'delItem',
-          data: {id}
+          data: { id }
         }).then(() => {
           wx.showToast({
             title: '成功',
@@ -97,5 +80,25 @@ Page({
         }).catch(console.error)
       }
     })    
+  },
+  getList() {
+    const { keyword } = this.data
+    const data = {
+      keyword,
+      curr: 1,
+      limit: 10,
+      offset: 0,
+    }
+
+    db.collection('items')
+      .where({
+        _id: cmd.neq(null),
+        deleted: cmd.eq(false)
+      })
+      .get()
+      .then(({data}) => {
+        data.forEach(el => { el.imgs = el.imgs.length ? el.imgs : ['../../images/default.jpg'] })
+        this.setData({ list: data })
+      })
   }
 })
