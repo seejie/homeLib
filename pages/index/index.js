@@ -41,6 +41,10 @@ Page({
         offset: 0,
       }
     }).then(({result}) => {
+      result.list.forEach(el=>{
+        el.img = el.img || '../../images/default.jpg'
+      })
+      console.log(result.list)
       this.setData({ list: result.list })
     }).catch(console.error)
   },
@@ -74,13 +78,23 @@ Page({
   },
   ondelete (e) {
     const id = e.target.dataset.id
-
+    const self = this
     wx.showModal({
       title: '删除物品',
       content: '确定要删除吗？',
       success (res) {
         if (!res.confirm) return
-        console.log(id)
+        wx.cloud.callFunction({
+          name: 'delItem',
+          data: {id}
+        }).then(() => {
+          wx.showToast({
+            title: '成功',
+            icon: 'success',
+            duration: 1500
+          })
+          self.getList()
+        }).catch(console.error)
       }
     })    
   }

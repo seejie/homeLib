@@ -3,6 +3,8 @@ Page({
     id: null,
     name: '',
     type: '',
+    price: '',
+    loc: '',
     desc: '',
     exp: '',
     imgs: []
@@ -35,9 +37,7 @@ Page({
       imgs: []
     })
 
-    wx.navigateTo({
-      url: '/pages/index/index',
-    })
+    wx.navigateBack({ changed: true })
   },
   oncomfirm () {
     const { id, name, type, desc, exp, imgs } = this.data

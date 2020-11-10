@@ -35,7 +35,7 @@ Component({
       const pages = getCurrentPages()
       this.setData({ father: pages.reverse()[0] })
     },
-    onNameChange (e) {
+    onTxtChange (e) {
       const val = e.detail.value
       this.data.father.setData({ name: val })
     },

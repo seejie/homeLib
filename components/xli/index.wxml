@@ -3,10 +3,11 @@
     {{name}}
     <text class="require" wx:if="{{require}}">*</text>
   </view>
+
   <block wx:if="{{type === 'input'}}">
     <input class="input" type="text" value="{{val}}" 
       placeholder="请输入{{name}}" placeholder-style="color: #aaa;"
-      bindinput="onNameChange"/>
+      bindinput="onTxtChange"/>
   </block>
 
   <block wx:elif="{{type === 'select'}}">

@@ -1,7 +1,7 @@
 <view class="wrapper">
   <view class="navBar">
     <view class="sub input-box">
-      <input class="input" type="text" placeholder="关键字" focus
+      <input class="input" type="text" placeholder="关键字" 
         placeholder-style="color: #aaa;font-size:small" value="{{keyword}}"
         bindinput="oninput" confirm-type="搜索" bindconfirm="oninput"/>
       <text class="clear" bindtap="onclear">x</text>
@@ -13,7 +13,7 @@
 
   <view class="list">
     <view class="card" wx:for="{{list}}" wx:key="id">
-      <image class="img" src="../../images/default.jpg" alt="图片"/>
+      <image class="img" src="{{item.img}}" alt="图片"/>
 
       <view class="info">
         <view class="name">
