@@ -41,9 +41,7 @@ Component({
     },
     onTypeChange (e) {
       const idx = e.detail.value
-      this.data.father.setData({
-        type: idx
-      })
+      this.data.father.setData({ type: idx })
     },
     onDescChange (e) {
       const val = e.detail.value
@@ -60,6 +58,7 @@ Component({
         sizeType: ['original', 'compressed'],
         sourceType: ['album', 'camera'],
         success (res) {
+          // todo: 上传图片
           const paths = res.tempFilePaths
           self.data.father.setData({ imgs: self.data.imgs.concat(paths) })
         }

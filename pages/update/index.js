@@ -50,9 +50,10 @@ Page({
       })
   },
   editItem (id) {
+    // todo: 云函数
     const data = this.data
     delete data._id
-    
+
     db.collection('items')
       .doc(id)
       .update({ data })
