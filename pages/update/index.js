@@ -1,4 +1,4 @@
-import { db, cmd } from '../../utils/util'
+import { db, operateSuccess } from '../../utils/util'
 import { Item } from '../../utils/contant'
 
 Page({
@@ -35,34 +35,25 @@ Page({
     } 
 
     this[_id ? 'editItem' : 'addItem'](_id)
-    
   },
   addItem () {
     db.collection('items')
       .add({ data: this.data })
       .then(({_id}) => {
         if (!_id) return
-        wx.showToast({
-          title: '添加成功！',
-          icon: 'none',
-          duration: 1500
-        })
+        operateSuccess()
+        wx.navigateBack({ changed: true })
       })
   },
   editItem (id) {
-    // todo: 云函数
     const data = this.data
-    delete data._id
 
-    db.collection('items')
-      .doc(id)
-      .update({ data })
-      .then(res => {
-        wx.showToast({
-          title: '修改成功！',
-          icon: 'none',
-          duration: 1500
-        })
-      })
+    wx.cloud.callFunction({
+      name: 'editItem',
+      data: { data }
+    }).then(() => {
+      operateSuccess()
+      wx.navigateBack({ changed: true })
+    }).catch(console.error)
   }
 })

@@ -6,14 +6,17 @@
         bindinput="oninput" confirm-type="搜索" bindconfirm="oninput"/>
       <text class="clear" bindtap="onclear">x</text>
     </view>
-    <!-- <view class="sub">分类</view> -->
-    <view class="sub">{{keyword}}</view>
-    <text class="sub btn" bindtap="onrecord">录入</text>
+    <view class="btn-group operation">
+      <image src="../../images/filter.png" alt="筛选"  class="icon" bindtap="onfilter"/>
+      <image src="../../images/types.png" alt="添加类别"  class="icon" bindtap="onaddTypes"/>
+      <image src="../../images/add.png" alt="录入"  class="icon add" bindtap="onrecord"/>
+    </view>
   </view>
 
   <view class="list">
     <view class="card" wx:for="{{list}}" wx:key="_id">
-      <image class="img" src="{{item.imgs[0]}}" alt="图片"/>
+      <image class="img" src="{{item.imgs[0]}}" alt="图片" 
+        bindtap="onZoom" data-src="{{item.imgs[0]}}"/>
 
       <view class="info">
         <view class="name">
@@ -30,6 +33,8 @@
       </view>
 
       <view class="btn-group">
+        <image src="../../images/view.png" alt="预览" 
+          class="icon view" bindtap="onpreview" data-imgs="{{item.imgs}}"/>
         <image src="../../images/edit.png" alt="编辑" 
           class="icon edit" bindtap="onedit" data-id="{{item._id}}"/>
         <image src="../../images/delete.png" alt="删除" 

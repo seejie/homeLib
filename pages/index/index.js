@@ -1,6 +1,6 @@
 import { createStoreBindings } from 'mobx-miniprogram-bindings'
 import { store } from '../../store/index'
-import { db, cmd } from '../../utils/util'
+import { db, cmd, operateSuccess } from '../../utils/util'
 
 Page({
   data: {
@@ -35,7 +35,8 @@ Page({
       })
       .get()
       .then(({data}) => {
-        this.setData({ types: data })
+        const arr = data.map(({name}) => name)
+        this.setTypes(arr)
       })
   },
   onrecord () {
@@ -54,9 +55,7 @@ Page({
   },
   onedit (e) {
     const id = e.target.dataset.id
-    wx.navigateTo({
-      url: `/pages/update/index?id=${id}`,
-    })
+    wx.navigateTo({ url: `/pages/update/index?id=${id}` })
   },
   ondelete (e) {
     const id = e.target.dataset.id
@@ -71,11 +70,7 @@ Page({
           name: 'delItem',
           data: { id }
         }).then(() => {
-          wx.showToast({
-            title: '成功',
-            icon: 'success',
-            duration: 1500
-          })
+          operateSuccess()
           self.getList()
         }).catch(console.error)
       }
@@ -83,22 +78,36 @@ Page({
   },
   getList() {
     const { keyword } = this.data
-    const data = {
-      keyword,
-      curr: 1,
-      limit: 10,
-      offset: 0,
-    }
 
     db.collection('items')
       .where({
         _id: cmd.neq(null),
-        deleted: cmd.eq(false)
+        deleted: cmd.eq(false),
+        name: db.RegExp({
+          regexp: keyword,
+          options: '.'
+        })
       })
       .get()
       .then(({data}) => {
         data.forEach(el => { el.imgs = el.imgs.length ? el.imgs : ['../../images/default.jpg'] })
         this.setData({ list: data })
       })
+  },
+  onZoom (e) {
+    const src = e.target.dataset.src
+    if (src.includes('default.jpg')) return
+    wx.previewImage({ urls: [src] })
+  },
+  onpreview (e) {
+    const urls = e.target.dataset.imgs.filter(el => !el.includes('default.jpg'))
+    if (!urls.length) return
+    wx.previewImage({ urls })
+  },
+  onaddTypes (e) {
+    wx.navigateTo({ url: `/pages/type/index` })
+  },
+  onfilter (e) {
+
   }
 })

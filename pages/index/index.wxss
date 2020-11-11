@@ -15,7 +15,9 @@ page{
   padding: 10px;
   background-color: #fff;
   box-sizing: border-box;
+  position: relative;
 }
+
 .input-box{
   position: relative;
 }
@@ -35,10 +37,23 @@ page{
   padding: 3px;
 }
 
-.btn{
-  border: 1px solid #aaa;
-  padding: 3px 10px;
-  border-radius: 4px;
+.btn-group.operation{
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.operation .icon {
+  margin-right: 0;
+  margin-left: 4vw;
+  width: 8vw;
+  height: 8vw;
+}
+
+.icon.add{
+  width: 5vw;
+  height: 5vw;
 }
 
 .list{

@@ -10,3 +10,11 @@ export const db = (() => {
 
 export const cmd = db.command
 
+export const operateSuccess = () => {
+  wx.showToast({
+    title: '操作成功',
+    icon: 'none',
+    duration: 1500
+  })
+}
+

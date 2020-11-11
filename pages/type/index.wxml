@@ -1,0 +1,17 @@
+<view class="wrapper">
+  <view class="panel">
+    <view class="title">
+      已有类别
+      <input type="text" class="input" placeholder="请输入名称" 
+        value="{{keyword}}" bindinput="onchange" />
+      <text class="btn" bindtap="onadd">添加</text>
+    </view>
+    <view wx:for="{{curr}}" wx:key="item" class="row">
+      {{item}}
+      <text class="btn" bindtap="ondelete" data-name="{{item}}">删除</text>
+    </view>
+    <view class="row nothing" wx:if="{{!curr.length}}">暂无</view>
+  </view>
+
+  <view class="back" bindtap="onback">返回</view>
+</view>

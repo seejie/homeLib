@@ -1,6 +1,5 @@
 {
-  "cloudfunctionRoot": "./cloudfunctions/",
-  "miniprogramRoot": "./",
+  "cloudfunctionRoot": "cloudfunctions/",
   "setting": {
     "urlCheck": true,
     "es6": true,
