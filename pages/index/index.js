@@ -95,11 +95,6 @@ Page({
       })
   },
   onZoom (e) {
-    const src = e.target.dataset.src
-    if (src.includes('default.jpg')) return
-    wx.previewImage({ urls: [src] })
-  },
-  onpreview (e) {
     const urls = e.target.dataset.imgs.filter(el => !el.includes('default.jpg'))
     if (!urls.length) return
     wx.previewImage({ urls })
@@ -108,6 +103,6 @@ Page({
     wx.navigateTo({ url: `/pages/type/index` })
   },
   onfilter (e) {
-
+    // todo
   }
 })

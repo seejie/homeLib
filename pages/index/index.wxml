@@ -16,7 +16,7 @@
   <view class="list">
     <view class="card" wx:for="{{list}}" wx:key="_id">
       <image class="img" src="{{item.imgs[0]}}" alt="图片" 
-        bindtap="onZoom" data-src="{{item.imgs[0]}}"/>
+        bindtap="onZoom" data-imgs="{{item.imgs}}"/>
 
       <view class="info">
         <view class="name">
@@ -33,8 +33,6 @@
       </view>
 
       <view class="btn-group">
-        <image src="../../images/view.png" alt="预览" 
-          class="icon view" bindtap="onpreview" data-imgs="{{item.imgs}}"/>
         <image src="../../images/edit.png" alt="编辑" 
           class="icon edit" bindtap="onedit" data-id="{{item._id}}"/>
         <image src="../../images/delete.png" alt="删除" 
