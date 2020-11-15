@@ -6,9 +6,9 @@
         value="{{keyword}}" bindinput="onchange" />
       <text class="btn" bindtap="onadd">添加</text>
     </view>
-    <view wx:for="{{curr}}" wx:key="item" class="row">
-      {{item}}
-      <text class="btn" bindtap="ondelete" data-name="{{item}}">删除</text>
+    <view wx:for="{{curr}}" wx:key="id" class="row">
+      {{item.name}}
+      <text class="btn" bindtap="ondelete" data-name="{{item.name}}">删除</text>
     </view>
     <view class="row nothing" wx:if="{{!curr.length}}">暂无</view>
   </view>

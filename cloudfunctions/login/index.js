@@ -8,7 +8,7 @@ const log = cloud.logger()
 exports.main = async (event) => {
   const { code } = event
   const {result: {appId, secret, api}} = await cloud.callFunction({
-    name:'config',
+    name: 'config',
     data: {api: 'auth'}
   })
   

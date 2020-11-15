@@ -31,15 +31,22 @@ Page({
     if (exist) return
 
     db.collection('types')
-      .add({ 
-        data: { 
-          name: keyword,
-          deleted: false,
-        } 
+      .where({
+        deleted: cmd.eq(false)
       })
-      .then(res => {
-        this.getData()
-        this.setData({ keyword: '' })
+      .count().then(({total}) => {
+        db.collection('types')
+          .add({ 
+            data: { 
+              name: keyword,
+              id: total,
+              deleted: false,
+            } 
+          })
+          .then(res => {
+            this.getData()
+            this.setData({ keyword: '' })
+          })
       })
   },
   ondelete (e) {
@@ -62,7 +69,13 @@ Page({
       })
       .get()
       .then(({ data }) => {
-        const curr = data.map(({name}) => name)
+        const curr = data.map(({id, name}) => {
+          return {
+            id,
+            name
+          }
+        }).sort((a, b) => a.id - b.id)
+
         this.setTypes(curr)
         this.setData({ curr })
         operateSuccess()

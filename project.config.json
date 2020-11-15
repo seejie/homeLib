@@ -56,6 +56,12 @@
           "pathName": "pages/update/index",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "更新类别",
+          "pathName": "pages/type/index",
+          "query": "",
+          "scene": null
         }
       ]
     }

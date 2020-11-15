@@ -30,6 +30,12 @@ Component({
   ready () {
     this.init()
   },
+  computed: {
+    realIdx (data) {
+      console.log(data)
+      return 0
+    }
+  },
   methods: {
     init () {
       const pages = getCurrentPages()
@@ -40,8 +46,9 @@ Component({
       this.triggerEvent('update', { val })
     },
     onTypeChange (e) {
-      const idx = e.detail.value
-      this.data.father.setData({ type: idx })
+      const idx = +e.detail.value
+      const type = this.data.types[idx].name
+      this.data.father.setData({ type })
     },
     onDescChange (e) {
       const val = e.detail.value
@@ -80,6 +87,9 @@ Component({
       const idx = e.target.dataset.idx
       const arr = this.data.father.data.imgs.filter((el, index) => index !== idx)
       this.data.father.setData({ imgs: arr })
+    },
+    getRealTxt (a) {
+      console.log(a)
     }
   }
 })

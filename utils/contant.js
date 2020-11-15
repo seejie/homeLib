@@ -4,11 +4,11 @@ export default {
 
 export const Item = {
   name: '',
-  type: '',
+  type: '全部',
   price: '',
   loc: '',
   desc: '',
-  exp: '',
+  exp: '长期',
   imgs: [],
   deleted: false
 }

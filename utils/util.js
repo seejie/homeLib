@@ -1,4 +1,4 @@
-import config, { envId as env } from './contant'
+import { envId as env } from './contant'
 
 export const db = (() => {
   wx.cloud.init({

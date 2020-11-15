@@ -7,7 +7,7 @@ cloud.init()
 // 云函数入口函数
 exports.main = async () => {
   const {result: {appId, secret, api}} = await cloud.callFunction({
-    name:'config',
+    name: 'config',
     data: {api: 'token'}
   })
 

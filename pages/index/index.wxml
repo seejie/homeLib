@@ -7,7 +7,11 @@
       <text class="clear" bindtap="onclear">x</text>
     </view>
     <view class="btn-group operation">
-      <image src="../../images/filter.png" alt="筛选"  class="icon" bindtap="onfilter"/>
+      <picker class="select" range="{{types}}" bindchange="onTypeChange" range-key="name">
+        <view>
+          <image src="../../images/filter.png" alt="筛选"  class="icon" />
+        </view>
+      </picker>
       <image src="../../images/types.png" alt="添加类别"  class="icon" bindtap="onaddTypes"/>
       <image src="../../images/add.png" alt="录入"  class="icon add" bindtap="onrecord"/>
     </view>

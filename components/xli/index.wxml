@@ -11,9 +11,10 @@
   </block>
 
   <block wx:elif="{{type === 'select'}}">
-    <picker class="select" value="{{val}}" range="{{types}}"
-      bindchange="onTypeChange">
-      <view class="picker {{val ? '' : 'noval'}}" >{{val ? types[val] : '请选择' + name }}</view>
+    <picker class="select" range="{{types}}" range-key="name" bindchange="onTypeChange">
+      <view class="picker {{val ? '' : 'noval'}}" >
+        {{val ? val : '请选择' + name }}
+      </view>
     </picker>
   </block>
 

@@ -2,12 +2,12 @@ import { createStoreBindings } from 'mobx-miniprogram-bindings'
 import { store } from '../../store/index'
 import { db, cmd, operateSuccess } from '../../utils/util'
 
-// todo: 小程序测速、消息推送、局域网通信
-
+// todo: 消息推送
 Page({
   data: {
     keyword: '',
-    list: []
+    list: [],
+    currType: '全部'
   },
   onLoad () {
     this.init()
@@ -27,6 +27,7 @@ Page({
     this.storeBindings = createStoreBindings(this, {
       store,
       actions: ['setTypes'],
+      fields: ['types']
     })
   },
   getTypes () {
@@ -37,8 +38,13 @@ Page({
     //     deleted: cmd.eq(false)
     //   })
     //   .get()
-    //   .then(({data}) => {
-    //     const arr = data.map(({name}) => name)
+    //   .then(({result}) => {
+    //     const arr = result.map(({id, name}) => {
+    //       return {
+    //         id,
+    //         name
+    //       }
+    //     }).sort((a, b) => a.id - b.id)
     //     this.setTypes(arr)
     //   })
   },
@@ -46,7 +52,12 @@ Page({
     wx.cloud.callFunction({
       name: 'getTypes'
     }).then(({result}) => {
-      const arr = result.map(({name}) => name)
+      const arr = result.map(({id, name}) => {
+        return {
+          id,
+          name
+        }
+      }).sort((a, b) => a.id - b.id)
       this.setTypes(arr)
     })
   },
@@ -86,16 +97,22 @@ Page({
   },
   getList() {
     const { keyword } = this.data
+    const type = this.data.currType
+
+    const condition = {
+      _id: cmd.neq(null),
+      type: cmd.eq(this.data.currType),
+      deleted: cmd.eq(false),
+      name: db.RegExp({
+        regexp: keyword,
+        options: '.'
+      })
+    }
+
+    condition.type = type === '全部' ? cmd.neq(null) : cmd.eq(type)
 
     db.collection('items')
-      .where({
-        _id: cmd.neq(null),
-        deleted: cmd.eq(false),
-        name: db.RegExp({
-          regexp: keyword,
-          options: '.'
-        })
-      })
+      .where(condition)
       .get({
         // explain: true,
         // complete: console.log,
@@ -113,7 +130,11 @@ Page({
   onaddTypes (e) {
     wx.navigateTo({ url: `/pages/type/index` })
   },
-  onfilter (e) {
-    // todo
+  onTypeChange (e) {
+    const id = +e.detail.value
+    const type = this.data.types[id].name
+
+    this.setData({ currType: type})
+    this.getList()
   }
 })
