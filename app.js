@@ -61,7 +61,7 @@ App({
           name: 'login',
           data: { code }
         }).then(res => {
-          console.log(res,111)
+          console.log(res)
           wx.checkSession()
             .then(res => {
               console.log(res)
