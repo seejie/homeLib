@@ -12,3 +12,5 @@ export const Item = {
   imgs: [],
   deleted: false
 }
+
+export const noticeTempId = 'pWefM7TK4_2p7xMKRkl9en17TV1P8w2HKlsLe4Kgvvk'

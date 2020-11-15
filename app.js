@@ -1,4 +1,5 @@
 import { cmd, db } from './utils/util'
+import {noticeTempId} from './utils/contant'
 const log = require('./utils/log')
 
 //app.js
@@ -11,12 +12,13 @@ App({
   },
   init () {
     this.login()
-    // this.getSetting()
+    this.getSetting()
     // this.performance()
     // this.report()
     // this.initAuth()
     this.logger()
     this.test()
+    this.authMsg()
   },
   getUserInfo () {
     db.collection('users')
@@ -105,7 +107,49 @@ App({
   logger () {
     log.info('welcome ！！！') 
   },
+  authMsg () {
+    let self = this ;
+    wx.showModal({
+      title: '温馨提示',
+      content: '为更好体验服务',
+      confirmText:"同意",
+      cancelText:"拒绝",
+      success (res) {
+        if (!res.confirm)  return
+        wx.requestSubscribeMessage({
+          tmplIds: [noticeTempId],
+          success (res) { 
+            console.log(res)
+            wx.cloud.callFunction({
+              name:'sendMsg', 
+              data: {
+                id: self.globalData.openId,
+                tempId: noticeTempId
+              }
+            })
+          },
+          fail (res) {
+            console.log(res)
+          }
+        })
+      }
+    // }).then(res => {
+    //   if (!res.confirm)  return
+    //   wx.requestSubscribeMessage({
+    //     tmplIds: ['pWefM7TK4_2p7xMKRkl9en17TV1P8w2HKlsLe4Kgvvk'],
+    //     success (res) { 
+    //       console.log(res)
+    //     },
+    //     fail (res) {
+    //       console.log(res)
+    //     }
+    //   })
+    })
+  },
   test () {
     console.log(1)
+    // wx.setEnableDebug({
+    //   enableDebug: true
+    // })
   }
 })

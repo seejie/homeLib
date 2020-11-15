@@ -136,5 +136,5 @@ Page({
 
     this.setData({ currType: type})
     this.getList()
-  }
+  },
 })
