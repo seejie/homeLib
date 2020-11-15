@@ -9,7 +9,12 @@ exports.main = async ({ id }) => {
   if (!id) return
   await db.collection('items')
     .doc(id)
-    .update({data: {deleted: true}}) 
+    .update({
+      data: {
+        deleted: true,
+        delTime: db.serverDate()
+      }
+    }) 
 
   return {
     result: true

@@ -10,7 +10,12 @@ exports.main = async ({name}) => {
 
   db.collection('types')
     .where({ name: _.eq(name) })
-    .update({ data: { deleted: true } })
+    .update({ 
+      data: { 
+        deleted: true,
+        delTime: db.serverDate()
+      } 
+    })
 
   return {
     result: true

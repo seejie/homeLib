@@ -3,7 +3,7 @@ import { store } from '../../store/index'
 import { db, cmd, operateSuccess } from '../../utils/util'
 
 // todo: miniprogram-computed、实时日志、小程序测速、消息推送、数据周期性更新、
-// 数据预拉取、图片适配、滚动区域没有开启惯性滚动、API Promise化、Cloud.logger、
+// 数据预拉取、
 // Cloud.CDN、Cloud.checkLogin、数据库 Explain API、云函数安全规则、局域网通信、启动性能、
 // wx.startSoterAuthentication、wx.checkIsSupportSoterAuthentication、
 // wx.checkIsSoterEnrolledInDevice、定义引用模板、<wxs>、

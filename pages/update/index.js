@@ -37,7 +37,12 @@ Page({
   },
   addItem () {
     db.collection('items')
-      .add({ data: this.data })
+      .add({ 
+        data: {
+          ...this.data,
+          createTime: db.serverDate()
+        }
+      })
       .then(({_id}) => {
         if (!_id) return
         operateSuccess()

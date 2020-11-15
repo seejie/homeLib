@@ -2,6 +2,7 @@
 const cloud = require('wx-server-sdk')
 const rp = require('request-promise')
 cloud.init()
+const log = cloud.logger()
 
 // 云函数入口函数
 exports.main = async (event) => {
@@ -10,6 +11,8 @@ exports.main = async (event) => {
     name:'config',
     data: {api: 'auth'}
   })
+  
+  log.info({name: 'login'})
 
   return await rp({
     uri: `${api}?appid=${appId}&secret=${secret}&js_code=${code}&grant_type=authorization_code`,

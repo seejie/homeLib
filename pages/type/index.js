@@ -34,7 +34,7 @@ Page({
       .add({ 
         data: { 
           name: keyword,
-          deleted: false 
+          deleted: false,
         } 
       })
       .then(res => {

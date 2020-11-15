@@ -29,7 +29,12 @@ App({
             const info = JSON.parse(rawData)
 
             db.collection('users')
-              .add({ data: { ...info } })
+              .add({ 
+                data: { 
+                  ...info,
+                  createTime: db.serverDate()
+                }
+              })
           })
       })
   },
@@ -44,7 +49,12 @@ App({
           .then((res) => {
             delete res.errMsg
             db.collection('devices')
-              .add({ data: { ...res } })
+              .add({ 
+                data: { 
+                  ...res,
+                  createTime: db.serverDate()
+                } 
+              })
           })
       })
   },
