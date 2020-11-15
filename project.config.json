@@ -1,7 +1,7 @@
 {
   "cloudfunctionRoot": "cloudfunctions/",
   "setting": {
-    "urlCheck": true,
+    "urlCheck": false,
     "es6": true,
     "enhance": true,
     "postcss": true,
@@ -30,29 +30,34 @@
     "userConfirmedUseCompilerModuleSwitch": false,
     "packNpmManually": false,
     "packNpmRelationList": [],
-    "minifyWXSS": true,
-    "skeletonGenerateFilesWithoutConfirm": true
+    "minifyWXSS": true
   },
   "compileType": "miniprogram",
   "appid": "wx0db6967f28874943",
-  "libVersion": "2.8.1",
+  "libVersion": "2.14.0",
   "projectname": "homeLib",
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
   "condition": {
-    "search": {
-      "list": []
-    },
-    "conversation": {
+    "plugin": {
       "list": []
     },
     "game": {
-      "currentL": -1,
+      "list": []
+    },
+    "gamePlugin": {
       "list": []
     },
     "miniprogram": {
-      "list": []
+      "list": [
+        {
+          "name": "录入",
+          "pathName": "pages/update/index",
+          "query": "",
+          "scene": null
+        }
+      ]
     }
   }
 }

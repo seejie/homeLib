@@ -37,7 +37,7 @@ Component({
     },
     onTxtChange (e) {
       const val = e.detail.value
-      this.data.father.setData({ val })
+      this.triggerEvent('update', { val })
     },
     onTypeChange (e) {
       const idx = e.detail.value
@@ -54,12 +54,26 @@ Component({
     getPhoto () {
       const self = this
       wx.chooseImage({
-        count: 3,
-        sizeType: ['original', 'compressed'],
+        count: 1,
+        sizeType: ['compressed'],
         sourceType: ['album', 'camera'],
         success (res) {
-          const paths = res.tempFilePaths
-          self.data.father.setData({ imgs: self.data.imgs.concat(paths) })
+          const src = res.tempFilePaths[0]
+          const path = src.replace('http://tmp/', '').split('.')
+          const name = `${path[2].slice(12)}.${path[3]}`
+
+          // wx.cloud.callFunction({
+          //   name: 'uploadImg',
+          //   data: {
+          //     src,
+          //     name
+          //   }
+          // }).then(({ result: {fileID} }) => {
+          //   self.data.father.setData({ imgs: self.data.imgs.concat([fileID]) })
+          //   console.log(fileID)
+          //   // self.data.father.setData({ imgs: self.data.imgs.concat([src]) })
+          // })
+          self.data.father.setData({ imgs: self.data.imgs.concat([src]) })
         }
       })
     },
@@ -68,5 +82,5 @@ Component({
       const arr = this.data.father.data.imgs.filter((el, index) => index !== idx)
       this.data.father.setData({ imgs: arr })
     }
-  },
+  }
 })

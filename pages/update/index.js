@@ -24,7 +24,7 @@ Page({
     wx.navigateBack({ changed: true })
   },
   oncomfirm () {
-    const { _id, name, type, desc, exp, imgs } = this.data
+    const { _id, name } = this.data
 
     if (!name) {
       wx.showToast({
@@ -33,7 +33,6 @@ Page({
         duration: 1500
       })
     } 
-
     this[_id ? 'editItem' : 'addItem'](_id)
   },
   addItem () {
@@ -55,5 +54,10 @@ Page({
       operateSuccess()
       wx.navigateBack({ changed: true })
     }).catch(console.error)
+  },
+  ontextchanged (e) {
+    const attr = e.target.dataset.attr
+    const val = e.detail.val
+    this.setData({ [attr]: val})
   }
 })
