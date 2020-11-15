@@ -2,11 +2,7 @@ import { createStoreBindings } from 'mobx-miniprogram-bindings'
 import { store } from '../../store/index'
 import { db, cmd, operateSuccess } from '../../utils/util'
 
-// todo: miniprogram-computed、实时日志、小程序测速、消息推送、数据周期性更新、
-// 数据预拉取、
-// Cloud.CDN、Cloud.checkLogin、数据库 Explain API、云函数安全规则、局域网通信、启动性能、
-// wx.startSoterAuthentication、wx.checkIsSupportSoterAuthentication、
-// wx.checkIsSoterEnrolledInDevice、定义引用模板、<wxs>、
+// todo: 小程序测速、消息推送、局域网通信
 
 Page({
   data: {
@@ -34,16 +30,25 @@ Page({
     })
   },
   getTypes () {
-    db.collection('types')
-      .where({
-        _id: cmd.neq(null),
-        deleted: cmd.eq(false)
-      })
-      .get()
-      .then(({data}) => {
-        const arr = data.map(({name}) => name)
-        this.setTypes(arr)
-      })
+    this.getTypes2()
+    // db.collection('types')
+    //   .where({
+    //     _id: cmd.neq(null),
+    //     deleted: cmd.eq(false)
+    //   })
+    //   .get()
+    //   .then(({data}) => {
+    //     const arr = data.map(({name}) => name)
+    //     this.setTypes(arr)
+    //   })
+  },
+  getTypes2 () {
+    wx.cloud.callFunction({
+      name: 'getTypes'
+    }).then(({result}) => {
+      const arr = result.map(({name}) => name)
+      this.setTypes(arr)
+    })
   },
   onrecord () {
     wx.navigateTo({ url: '/pages/update/index' })
@@ -91,7 +96,10 @@ Page({
           options: '.'
         })
       })
-      .get()
+      .get({
+        // explain: true,
+        // complete: console.log,
+      })
       .then(({data}) => {
         data.forEach(el => { el.imgs = el.imgs.length ? el.imgs : ['../../images/default.jpg'] })
         this.setData({ list: data })

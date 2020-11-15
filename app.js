@@ -1,4 +1,5 @@
 import { cmd, db } from './utils/util'
+const log = require('./utils/log')
 
 //app.js
 App({
@@ -14,6 +15,7 @@ App({
     // this.performance()
     // this.report()
     // this.initAuth()
+    this.logger()
     this.test()
   },
   getUserInfo () {
@@ -99,6 +101,9 @@ App({
           //   })
         })
       })
+  },
+  logger () {
+    log.info('welcome ！！！') 
   },
   test () {
     console.log(1)
