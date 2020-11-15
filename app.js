@@ -10,6 +10,7 @@ App({
     this.performance()
     this.report()
     this.initAuth()
+    this.login()
     this.test()
   },
   getUserInfo () {
@@ -53,7 +54,7 @@ App({
       }
     })
   },
-  test () {
+  login () {
     wx.login()
       .then(({code}) => {
         wx.cloud.callFunction({
@@ -66,6 +67,12 @@ App({
               console.log(res)
             })
         })
+      })
+  },
+  test () {
+    wx.setScreenBrightness({value: .4})
+      .then(res => {
+        console.log(res)
       })
   }
 })

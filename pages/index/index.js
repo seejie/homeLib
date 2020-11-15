@@ -7,7 +7,7 @@ import { db, cmd, operateSuccess } from '../../utils/util'
 // 登录鉴权、Cloud.CDN、Cloud.checkLogin、数据库 Explain API、云函数安全规则、
 // wx.startPullDownRefresh、wx.saveImageToPhotosAlbum、
 // wx.startSoterAuthentication、wx.checkIsSupportSoterAuthentication、
-// wx.checkIsSoterEnrolledInDevice、wx.onNetworkStatusChange、wx.setScreenBrightness、
+// wx.checkIsSoterEnrolledInDevice、wx.onNetworkStatusChange、
 // wx.startDeviceMotionListening、wx.startGyroscope、wx.scanCode、subpackages、
 // preloadRule、requiredBackgroundModes、permission、lazyCodeLoading、
 // enablePullDownRefresh、initialRenderingCache、onShareAppMessage、onShareTimeline、
