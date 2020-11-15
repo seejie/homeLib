@@ -1,6 +1,7 @@
 import { storeBindingsBehavior } from 'mobx-miniprogram-bindings' 
 import { store } from '../../store/index'
 
+// todo: input难点
 Component({
   behaviors: [storeBindingsBehavior],
   storeBindings: {
@@ -65,6 +66,7 @@ Component({
         sizeType: ['compressed'],
         sourceType: ['album', 'camera']
       }).then(res => {
+        // todo: 上传图片
         const src = res.tempFilePaths[0]
         const path = src.replace('http://tmp/', '').split('.')
         const name = `${path[2].slice(12)}.${path[3]}`

@@ -29,7 +29,7 @@
         <view class="desc">{{item.desc}}</view>
         <view class="loc">
           {{item.loc ? '位置：' + item.loc : ''}}
-          {{item.price ? '价格：' + item.price : ''}}
+          {{item.price ? '价格：¥' + item.price : ''}}
         </view>
         <view class="exp">
           {{'有效期：' + (item.exp || '长久')}}
