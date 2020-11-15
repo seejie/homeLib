@@ -15,10 +15,8 @@ exports.main = async (event) => {
     uri: `${api}?appid=${appId}&secret=${secret}&js_code=${code}&grant_type=authorization_code`,
     json: true
   }).then(({session_key, openid}) => {
-    console.log(openid)
     console.log(session_key)
-    const token = 12345
     // todo: token
-    return token
+    return openid
   })
 }

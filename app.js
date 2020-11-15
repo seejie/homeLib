@@ -1,30 +1,51 @@
+import { cmd, db } from './utils/util'
+
 //app.js
 App({
+  globalData: {
+    openId: null
+  },
   onLaunch: function (e) {
     this.init()
   },
   init () {
-    this.getUserInfo()
-    this.getSysInfo()
-    this.getSetting()
-    this.performance()
-    this.report()
-    this.initAuth()
     this.login()
+    // this.getSetting()
+    // this.performance()
+    // this.report()
+    // this.initAuth()
     this.test()
   },
   getUserInfo () {
-    wx.getUserInfo()
-      .then(res => {
-        const { rawData } = res
-        const info = JSON.parse(rawData)
-        console.log(info)
+    db.collection('users')
+      .where({
+        _openid: cmd.eq(this.globalData.openId)
+      }).get()
+      .then(({data}) => {
+        if (data.length) return
+        wx.getUserInfo()
+          .then(res => {
+            const { rawData } = res
+            const info = JSON.parse(rawData)
+
+            db.collection('users')
+              .add({ data: { ...info } })
+          })
       })
   },
   getSysInfo () {
-    wx.getSystemInfo()
-      .then(res => {
-        console.log(res)
+    db.collection('devices')
+      .where({
+        _openid: cmd.eq(this.globalData.openId)
+      }).get()
+      .then(({data}) => {
+        if (data.length) return
+        wx.getSystemInfo()
+          .then((res) => {
+            delete res.errMsg
+            db.collection('devices')
+              .add({ data: { ...res } })
+          })
       })
   },
   getSetting () {
@@ -48,10 +69,8 @@ App({
   initAuth () {
     wx.authorize({
       scope: 'scope.userInfo',
-      success () {
-        // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
-        // wx.startRecord()
-      }
+    }).then(res => {
+      console.log(res)
     })
   },
   login () {
@@ -60,19 +79,18 @@ App({
         wx.cloud.callFunction({
           name: 'login',
           data: { code }
-        }).then(res => {
-          console.log(res)
-          wx.checkSession()
-            .then(res => {
-              console.log(res)
-            })
+        }).then(({result}) => {
+          this.globalData.openId = result
+          this.getUserInfo()
+          this.getSysInfo()
+          // wx.checkSession()
+          //   .then(res => {
+          //     console.log(res)
+          //   })
         })
       })
   },
   test () {
-    wx.setScreenBrightness({value: .4})
-      .then(res => {
-        console.log(res)
-      })
+    console.log(1)
   }
 })

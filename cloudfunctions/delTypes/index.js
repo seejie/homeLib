@@ -9,8 +9,8 @@ const _ = db.command
 exports.main = async ({name}) => {
 
   db.collection('types')
-  .where({ name: _.eq(name) })
-  .update({ data: { deleted: true } })
+    .where({ name: _.eq(name) })
+    .update({ data: { deleted: true } })
 
   return {
     result: true

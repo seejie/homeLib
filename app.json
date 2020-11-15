@@ -4,6 +4,13 @@
     "pages/type/index",
     "pages/update/index"
   ],
+  "requiredBackgroundModes": ["location"],
+  "lazyCodeLoading": "requiredComponents",
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序定位"
+    }
+  },
   "window": {
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
