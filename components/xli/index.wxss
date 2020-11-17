@@ -81,4 +81,6 @@
 
 .input{
   flex: 1;
+  margin: -2.5vw 0;
+  height: 42px;
 }

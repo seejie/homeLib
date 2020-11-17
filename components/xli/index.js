@@ -1,7 +1,6 @@
 import { storeBindingsBehavior } from 'mobx-miniprogram-bindings' 
 import { store } from '../../store/index'
 
-// todo: input难点
 Component({
   behaviors: [storeBindingsBehavior],
   storeBindings: {

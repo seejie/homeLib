@@ -13,7 +13,7 @@ exports.main = async event => {
   })
 
   const {result:{access_token}} = await cloud.callFunction({name: 'getToken'})
-
+  // todo：定时消息
   return await rp({
     uri: `${api}?access_token=${access_token}`,
     method: 'POST',

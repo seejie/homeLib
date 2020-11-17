@@ -2,7 +2,6 @@ import { createStoreBindings } from 'mobx-miniprogram-bindings'
 import { store } from '../../store/index'
 import { db, cmd, operateSuccess } from '../../utils/util'
 
-// todo: 消息推送
 Page({
   data: {
     keyword: '',
