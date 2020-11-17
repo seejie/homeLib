@@ -7,17 +7,18 @@ App({
   globalData: {
     openId: null
   },
+  // 流程：检查登录态【1】=>1.重新登录=>获取用户信息、设备信息=>初始化=>
+  // 【1】=>2.初始化=>检测用户授权信息=>若检测到未授权的权利【2】=>1.申请相应授权=>首页
+  // 【2】=>2.使用相应能力时再申请授权=>首页
   onLaunch: function (e) {
-    this.init()
+    this.checkUser()
+    this.debug()
   },
   init () {
-    this.login()
-    this.getSetting()
-    // this.performance()
-    // this.report()
-    // this.initAuth()
+    this.checkUserAuthSetting()
+    this.performance()
+    this.report()
     this.logger()
-    this.test()
     this.authMsg()
   },
   getUserInfo () {
@@ -62,11 +63,18 @@ App({
           })
       })
   },
-  getSetting () {
-    wx.getSetting()
-      .then(({ authSetting }) => {
-        console.log(authSetting)
-      })
+  checkUserAuthSetting () {
+    const self = this
+    wx.getSetting({
+      withSubscriptions: true,
+      success: function ({authSetting}) {
+        console.log('授权信息：', authSetting)
+        self.initAuth()
+      },
+      fail: function (res) {
+        console.log('获取授权信息失败')
+      }
+    })
   },
   performance () {
     const performance = wx.getPerformance()
@@ -82,9 +90,14 @@ App({
   },
   initAuth () {
     wx.authorize({
-      scope: 'scope.userInfo',
-    }).then(res => {
-      console.log(res)
+      // scope: 'scope.userInfo',
+      scope: 'scope.userLocation',
+      success: function (res) {
+        console.log('授权成功：', res)
+      },
+      fail: function (res) {
+        console.log('授权失败：', res)
+      }
     })
   },
   login () {
@@ -97,10 +110,7 @@ App({
           this.globalData.openId = result
           this.getUserInfo()
           this.getSysInfo()
-          // wx.checkSession()
-          //   .then(res => {
-          //     console.log(res)
-          //   })
+          this.init()
         })
       })
   },
@@ -108,7 +118,6 @@ App({
     log.info('welcome ！！！') 
   },
   authMsg () {
-    let self = this ;
     wx.showModal({
       title: '温馨提示',
       content: '为更好体验服务',
@@ -119,37 +128,45 @@ App({
         wx.requestSubscribeMessage({
           tmplIds: [noticeTempId],
           success (res) { 
-            console.log(res)
-            wx.cloud.callFunction({
-              name:'sendMsg', 
-              data: {
-                id: self.globalData.openId,
-                tempId: noticeTempId
-              }
-            })
+            console.log('授权订阅消息成功：', res)
           },
           fail (res) {
-            console.log(res)
+            console.log('授权订阅消息失败：', res)
           }
         })
       }
-    // }).then(res => {
-    //   if (!res.confirm)  return
-    //   wx.requestSubscribeMessage({
-    //     tmplIds: ['pWefM7TK4_2p7xMKRkl9en17TV1P8w2HKlsLe4Kgvvk'],
-    //     success (res) { 
-    //       console.log(res)
-    //     },
-    //     fail (res) {
-    //       console.log(res)
-    //     }
-    //   })
     })
   },
-  test () {
-    console.log(1)
-    // wx.setEnableDebug({
-    //   enableDebug: true
-    // })
+  debug () {
+    wx.setEnableDebug({
+      enableDebug: true
+    }).then(res => {
+      console.log(res)
+    }).catch(res => {
+      console.log(res)
+    })
+  },
+  checkUser () {
+    const self = this
+    // 检查登录态是否过期
+    wx.checkSession({
+      // 未过期
+      success (res) {
+        self.init()
+      },
+      // 过期
+      fail (res) {
+        self.login()
+      }
+    })
+  },
+  sendMsg () {
+    wx.cloud.callFunction({
+      name:'sendMsg', 
+      data: {
+        id: this.globalData.openId,
+        tempId: noticeTempId
+      }
+    })
   }
 })
