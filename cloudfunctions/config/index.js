@@ -3,7 +3,7 @@ const cloud = require('wx-server-sdk')
 cloud.init()
 
 const appId = 'wx0db6967f28874943'
-const secret = '6f7b33dfa0c266f9657148331195c74b'
+const secret = '19a4f1ec6846a75714edee6f52de4e99'
 const api = {
   auth: 'https://api.weixin.qq.com/sns/jscode2session',
   token: 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential',

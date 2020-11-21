@@ -68,7 +68,7 @@ App({
     wx.getSetting({
       withSubscriptions: true,
       success: function ({authSetting}) {
-        console.log('授权信息：', authSetting)
+        // console.log('授权信息：', authSetting)
         self.initAuth()
       },
       fail: function (res) {
@@ -79,7 +79,7 @@ App({
   performance () {
     const performance = wx.getPerformance()
     const observer = performance.createObserver((entryList) => {
-      console.log(entryList.getEntries())
+      // console.log(entryList.getEntries())
     })
     observer.observe({ entryTypes: ['render', 'script'] })
   },
@@ -142,8 +142,8 @@ App({
       enableDebug: true
     }).then(res => {
       console.log(res)
-    }).catch(res => {
-      console.log(res)
+    }).catch(err => {
+      // console.log(err)
     })
   },
   checkUser () {

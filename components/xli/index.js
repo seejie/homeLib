@@ -65,23 +65,23 @@ Component({
         sizeType: ['compressed'],
         sourceType: ['album', 'camera']
       }).then(res => {
-        // todo: 上传图片
         const src = res.tempFilePaths[0]
         const path = src.replace('http://tmp/', '').split('.')
         const name = `${path[2].slice(12)}.${path[3]}`
-
-        // wx.cloud.callFunction({
-        //   name: 'uploadImg',
-        //   data: {
-        //     src,
-        //     name
-        //   }
-        // }).then(({ result: {fileID} }) => {
-        //   self.data.father.setData({ imgs: self.data.imgs.concat([fileID]) })
-        //   console.log(fileID)
-        //   // self.data.father.setData({ imgs: self.data.imgs.concat([src]) })
-        // })
-        self.data.father.setData({ imgs: self.data.imgs.concat([src]) })
+        wx.getFileSystemManager().readFile({
+          filePath: src,
+          success ({data}) {
+            wx.cloud.callFunction({
+              name: 'uploadImg',
+              data: {
+                buff: data,
+                name
+              }
+            }).then(({ result: {fileID} }) => {
+              self.data.father.setData({ imgs: self.data.imgs.concat([fileID]) })
+            })
+          }
+        })
       })
     },
     ondelete (e) {
