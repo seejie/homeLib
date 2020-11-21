@@ -86,11 +86,14 @@ Component({
     },
     ondelete (e) {
       const idx = e.target.dataset.idx
-      const arr = this.data.father.data.imgs.filter((el, index) => index !== idx)
+      const imgs = this.data.father.data.imgs
+      const arr = imgs.filter((el, index) => index !== idx)
       this.data.father.setData({ imgs: arr })
-    },
-    getRealTxt (a) {
-      console.log(a)
+
+      wx.cloud.callFunction({
+        name: 'delImg',
+        data: { fileId: imgs[idx]}
+      })
     }
   }
 })
