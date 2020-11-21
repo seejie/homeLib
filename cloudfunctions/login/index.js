@@ -14,6 +14,7 @@ exports.main = async (event) => {
   
   log.info({name: 'login'})
 
+  const lsj = 'ooc6r5bN7yWaFN3EqDr8yb1rUt1Q'
   return await rp({
     uri: `${api}?appid=${appId}&secret=${secret}&js_code=${code}&grant_type=authorization_code`,
     json: true

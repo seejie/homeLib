@@ -153,6 +153,7 @@ App({
       // 未过期
       success (res) {
         self.init()
+        self.getUserInfo()
       },
       // 过期
       fail (res) {

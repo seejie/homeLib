@@ -2,6 +2,7 @@
   <xli name="名称" val="{{name}}" require bindupdate="ontextchanged" data-attr="name"></xli>
   <xli name="类型" val="{{type}}" type="select"></xli>
   <xli name="价钱" val="{{price}}"  bindupdate="ontextchanged" data-attr="price"></xli>
+  <xli name="数量" val="{{count}}"  bindupdate="ontextchanged" data-attr="count"></xli>
   <xli name="位置" val="{{loc}}"  bindupdate="ontextchanged" data-attr="loc"></xli>
   <xli name="描述" val="{{desc}}" type="txt"></xli>
   <xli name="日期" val="{{exp}}" type="date"></xli>

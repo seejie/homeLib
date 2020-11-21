@@ -30,12 +30,6 @@ Component({
   ready () {
     this.init()
   },
-  computed: {
-    realIdx (data) {
-      console.log(data)
-      return 0
-    }
-  },
   methods: {
     init () {
       const pages = getCurrentPages()

@@ -6,6 +6,7 @@ export const Item = {
   name: '',
   type: '全部',
   price: '',
+  count: 1,
   loc: '',
   desc: '',
   exp: '长期',

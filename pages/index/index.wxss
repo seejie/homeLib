@@ -91,9 +91,17 @@ page{
   color: #aaa;
 }
 
-.loc, .exp{
+.other, .exp{
   color: #f55353;
   font-size: small;
+}
+
+.other{
+  display: flex;
+}
+
+.tag + .tag{
+  margin-left: 1rem;
 }
 
 .btn-group{
