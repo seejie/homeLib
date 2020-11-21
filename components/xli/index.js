@@ -60,8 +60,15 @@ Component({
         sourceType: ['album', 'camera']
       }).then(res => {
         const src = res.tempFilePaths[0]
-        const path = src.replace('http://tmp/', '').split('.')
-        const name = `${path[2].slice(12)}.${path[3]}`
+        console.log(src)
+        let name
+        if (src.includes('wxfile')) {
+          name = src.replace('wxfile://tmp_', '').split('.')
+        } else {
+          const path = src.replace('http://tmp/', '').split('.')
+          name = `${path[2].slice(12)}.${path[3]}`
+        }
+
         wx.getFileSystemManager().readFile({
           filePath: src,
           success ({data}) {
