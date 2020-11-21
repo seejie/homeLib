@@ -30,24 +30,6 @@ Page({
     })
   },
   getTypes () {
-    this.getTypes2()
-    // db.collection('types')
-    //   .where({
-    //     _id: cmd.neq(null),
-    //     deleted: cmd.eq(false)
-    //   })
-    //   .get()
-    //   .then(({result}) => {
-    //     const arr = result.map(({id, name}) => {
-    //       return {
-    //         id,
-    //         name
-    //       }
-    //     }).sort((a, b) => a.id - b.id)
-    //     this.setTypes(arr)
-    //   })
-  },
-  getTypes2 () {
     wx.cloud.callFunction({
       name: 'getTypes'
     }).then(({result}) => {
@@ -91,7 +73,7 @@ Page({
       }).then(() => {
         operateSuccess()
         self.getList()
-      }).catch(console.error)
+      })
     })
   },
   getList() {
@@ -135,5 +117,5 @@ Page({
 
     this.setData({ currType: type})
     this.getList()
-  },
+  }
 })

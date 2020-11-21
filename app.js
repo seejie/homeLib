@@ -27,7 +27,7 @@ App({
         _openid: cmd.eq(this.globalData.openId)
       }).get()
       .then(({data}) => {
-        if (data.length) return
+        if (data.length >= 2) return
         wx.getUserInfo()
           .then(res => {
             const { rawData } = res
